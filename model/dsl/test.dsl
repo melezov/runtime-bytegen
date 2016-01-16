@@ -5,5 +5,6 @@ module test
     Decimal(2)? in;
     Decimal(2)? out;
     String      description;
+    Double?     exchangeRate;
   }
 }

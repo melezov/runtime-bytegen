@@ -1,9 +1,9 @@
 package org.revenj;
 
-import jdk.internal.org.objectweb.asm.Type;
-import org.objectweb.asm.ClassWriter;
-import org.objectweb.asm.MethodVisitor;
-import org.objectweb.asm.Opcodes;
+import org.jinq.rebased.org.objectweb.asm.Type;
+import org.jinq.rebased.org.objectweb.asm.ClassWriter;
+import org.jinq.rebased.org.objectweb.asm.MethodVisitor;
+import org.jinq.rebased.org.objectweb.asm.Opcodes;
 
 import java.lang.reflect.Method;
 
@@ -26,10 +26,9 @@ public class CompareCompiler implements Opcodes {
 
     private static String wrapPrimitives(final Class<?> type) {
         if (type.isPrimitive()) {
-            switch (type.getName()) {
-                case "long": return "java/lang/Long";
-                default: throw new RuntimeException("Unsupported primitive type:" + type);
-            }
+            if (type.getName().equals("long")) return "java/lang/Long";
+            if (type.getName().equals("double")) return "java/lang/Double";
+            throw new RuntimeException("Unsupported primitive type:" + type);
         }
         return Type.getInternalName(type);
     }
