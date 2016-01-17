@@ -24,13 +24,8 @@ public class CompareCompiler implements Opcodes {
         }
     }
 
-    private static String wrapPrimitives(final Class<?> type) {
-        if (type.isPrimitive()) {
-            if (type.getName().equals("long")) return "java/lang/Long";
-            if (type.getName().equals("double")) return "java/lang/Double";
-            throw new RuntimeException("Unsupported primitive type:" + type);
-        }
-        return Type.getInternalName(type);
+    private static <T> String wrapPrimitives(final Class<T> type) {
+        return Type.getInternalName(Primitives.wrap(type));
     }
 
     public static String L(final String descriptor) {
